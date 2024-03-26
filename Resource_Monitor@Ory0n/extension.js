@@ -234,7 +234,7 @@ const ResourceMonitor = GObject.registerClass(
         y_align: Clutter.ActorAlign.CENTER,
         text: "°C",
       });
-      this._cpuTemperatureUnit.set_style("padding-left: 0.125em;");
+      //this._cpuTemperatureUnit.set_style("padding-left: 0.125em;");
 
       this._cpuFrequencyUnit = new St.Label({
         y_align: Clutter.ActorAlign.CENTER,
@@ -246,19 +246,19 @@ const ResourceMonitor = GObject.registerClass(
         y_align: Clutter.ActorAlign.CENTER,
         text: "%",
       });
-      this._cpuUnit.set_style("padding-left: 0.125em;");
+      this._cpuUnit.set_style("padding-right: 0.125em;");
 
       this._ramUnit = new St.Label({
         y_align: Clutter.ActorAlign.CENTER,
         text: this._ramUnitType ? "%" : "KB",
       });
-      this._ramUnit.set_style("padding-left: 0.125em;");
+      this._ramUnit.set_style("padding-right: 0.125em;");
 
       this._swapUnit = new St.Label({
         y_align: Clutter.ActorAlign.CENTER,
         text: this._swapUnitType ? "%" : "KB",
       });
-      this._swapUnit.set_style("padding-left: 0.125em;");
+      this._swapUnit.set_style("padding-right: 0.125em;");
 
       this._ethUnit = new St.Label({
         y_align: Clutter.ActorAlign.CENTER,
@@ -296,13 +296,13 @@ const ResourceMonitor = GObject.registerClass(
 
       this._ethValue = new St.Label({
         y_align: Clutter.ActorAlign.CENTER,
-        text: "--|--",
+        text: "-- | --",
       });
       this._ethValue.set_style("text-align: right;");
 
       this._wlanValue = new St.Label({
         y_align: Clutter.ActorAlign.CENTER,
-        text: "--|--",
+        text: "-- | --",
       });
       this._wlanValue.set_style("text-align: right;");
 
@@ -1275,13 +1275,14 @@ const ResourceMonitor = GObject.registerClass(
         const stats = it[2] === "true";
         const space = it[3] === "true";
 
-        let label = "";
+        /*let label = "";
 
         if (filesystem.match(/(\/\w+)+/)) {
           label = filesystem.split("/").pop();
         } else {
           label = filesystem;
-        }
+        }*/
+        const label = mountPoint;
 
         if (stats) {
           this._diskStatsBox.add_element(filesystem, label);
@@ -2043,13 +2044,13 @@ const ResourceMonitor = GObject.registerClass(
             if (this._decimalsStatus) {
               this._diskStatsBox.update_element_value(
                 filesystem,
-                `${rw[0].toFixed(1)}|${rw[1].toFixed(1)}`,
+                `${rw[0].toFixed(1)} | ${rw[1].toFixed(1)}`,
                 unit
               );
             } else {
               this._diskStatsBox.update_element_value(
                 filesystem,
-                `${rw[0].toFixed(0)}|${rw[1].toFixed(0)}`,
+                `${rw[0].toFixed(0)} | ${rw[1].toFixed(0)}`,
                 unit
               );
             }
@@ -2152,13 +2153,13 @@ const ResourceMonitor = GObject.registerClass(
                 if (this._decimalsStatus) {
                   this._diskStatsBox.update_element_value(
                     filesystem,
-                    `${rw[0].toFixed(1)}|${rw[1].toFixed(1)}`,
+                    `${rw[0].toFixed(1)} | ${rw[1].toFixed(1)}`,
                     unit
                   );
                 } else {
                   this._diskStatsBox.update_element_value(
                     filesystem,
-                    `${rw[0].toFixed(0)}|${rw[1].toFixed(0)}`,
+                    `${rw[0].toFixed(0)} | ${rw[1].toFixed(0)}`,
                     unit
                   );
                 }
@@ -2166,7 +2167,7 @@ const ResourceMonitor = GObject.registerClass(
                 // Not found
                 this._diskStatsBox.update_element_value(
                   filesystem,
-                  "--|--",
+                  "-- | --",
                   ""
                 );
               }
@@ -2408,9 +2409,9 @@ const ResourceMonitor = GObject.registerClass(
         this._ethIdleOld = idle;
 
         if (this._decimalsStatus) {
-          this._ethValue.text = `${du[0].toFixed(1)}|${du[1].toFixed(1)}`;
+          this._ethValue.text = `${du[0].toFixed(1)} | ${du[1].toFixed(1)}`;
         } else {
-          this._ethValue.text = `${du[0].toFixed(0)}|${du[1].toFixed(0)}`;
+          this._ethValue.text = `${du[0].toFixed(0)} | ${du[1].toFixed(0)}`;
         }
       });
     }
@@ -2523,9 +2524,9 @@ const ResourceMonitor = GObject.registerClass(
         this._wlanIdleOld = idle;
 
         if (this._decimalsStatus) {
-          this._wlanValue.text = `${du[0].toFixed(1)}|${du[1].toFixed(1)}`;
+          this._wlanValue.text = `${du[0].toFixed(1)} | ${du[1].toFixed(1)}`;
         } else {
-          this._wlanValue.text = `${du[0].toFixed(0)}|${du[1].toFixed(0)}`;
+          this._wlanValue.text = `${du[0].toFixed(0)} | ${du[1].toFixed(0)}`;
         }
       });
     }
@@ -3122,7 +3123,7 @@ const DiskContainerSpace = GObject.registerClass(
         y_align: Clutter.ActorAlign.CENTER,
         text: this._diskSpaceUnitType ? "%" : "KB",
       });
-      this._elementsUnit[filesystem].set_style("padding-left: 0.125em;");
+      //this._elementsUnit[filesystem].set_style("padding-left: 0.125em;");
 
       this.add(this._elementsName[filesystem]);
       this.add(this._elementsValue[filesystem]);
@@ -3238,7 +3239,7 @@ const GpuContainer = GObject.registerClass(
           y_align: Clutter.ActorAlign.CENTER,
           text: "%",
         });
-        this._elementsUnit[uuid].set_style("padding-left: 0.125em;");
+        this._elementsUnit[uuid].set_style("padding-right: 0.125em;");
 
         this.add(
           new St.Label({
@@ -3268,7 +3269,7 @@ const GpuContainer = GObject.registerClass(
           y_align: Clutter.ActorAlign.CENTER,
           text: this._gpuMemoryUnitType ? "%" : "KB",
         });
-        this._elementsMemoryUnit[uuid].set_style("padding-left: 0.125em;");
+        this._elementsMemoryUnit[uuid].set_style("padding-right: 0.125em;");
 
         this.add(
           new St.Label({
@@ -3298,7 +3299,7 @@ const GpuContainer = GObject.registerClass(
           y_align: Clutter.ActorAlign.CENTER,
           text: "°C",
         });
-        this._elementsThermalUnit[uuid].set_style("padding-left: 0.125em;");
+        //this._elementsThermalUnit[uuid].set_style("padding-left: 0.125em;");
 
         this.add(
           new St.Label({
